@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace StrongHoldFinder
     /// </summary>
     public partial class MainWindow : Window
     {
-        public int method = -1;
+        private int method = -1;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,25 +29,82 @@ namespace StrongHoldFinder
 
         private void SingleLocationWithDirection_Checked(object sender, RoutedEventArgs e)
         {
+            //一对坐标视角
             this.method = 1;
         }
 
         private void DoubleLocation_Checked(object sender, RoutedEventArgs e)
         {
+            //双坐标
             this.method = 2;
         }
 
-        private List<double> solve(double a, double b, double c,double d, double e, double f)
+        private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
-
-            double y = (f - d * c / a) / (e - d * b / a);
-            double x = (c - b * y) / a;
-            List<double> result = new()
+            List<double>? re;
+            if (this.method == -1) 
             {
-                x,
-                y
-            };
-            return result;
+                MessageBox.Show("没有选择方法,请选择一个方法", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            if (this.method == 1) 
+            {
+                re = Utils.solve(
+                    Math.Tan(Math.PI * -1 * Convert.ToDouble(this.FirstFirstDirection.Text) / 180),
+                    -1,
+                    Math.Tan((-1 * Convert.ToDouble(this.FirstFirstDirection.Text)) * Math.PI / 180) * Convert.ToDouble(this.FirstFirstZ1Location.Text) - Convert.ToDouble(this.FirstFirstX1Location.Text), 
+                    Math.Tan((-1 * Convert.ToDouble(this.FirstSecondDirection.Text)) * Math.PI / 180),
+                    -1,
+                    Math.Tan((-1 * Convert.ToDouble(this.FirstSecondDirection.Text))) * Math.PI/180 * Convert.ToDouble(this.FirstSecondZ1Location.Text) - Convert.ToDouble(this.FirstFirstX1Location.Text)
+                    );
+            }
+
+            if (this.method == 2) 
+            {
+                
+            }
+        }
+        private bool CheckAllFirstTextBox()
+        {
+            //检查左侧有没有东西写进去了
+            if (this.FirstFirstX1Location.Text != "0") 
+                return true;
+            if (this.FirstFirstZ1Location.Text != "0")
+                return true;
+            if (this.FirstFirstDirection.Text != "0")
+                return true;
+            if (this.FirstSecondX1Location.Text != "0")
+                return true;
+            if (this.FirstSecondZ1Location.Text != "0")
+                return true;
+            if (this.FirstSecondDirection.Text != "0")
+                return true;
+
+            return false;
+        }
+
+        private bool CheckAllSecondTextBox()
+        {
+            //检查右侧有没有东西写进去了
+            if (this.SecondFirstThrowLocationX.Text != "0")
+                return true;
+            if (this.SecondFirstThrowLocationZ.Text != "0")
+                return true;
+            if (this.SecondFirstDropLocationX.Text != "0")
+                return true;
+            if (this.SecondFirstDropLocationZ.Text != "0")
+                return true;
+
+            if (this.SecondSecondThrowLocationX.Text != "0")
+                return true;
+            if (this.SecondSecondThrowLocationZ.Text != "0")
+                return true;
+            if (this.SecondSecondDropLocationX.Text != "0")
+                return true;
+            if (this.SecondFirstDropLocationZ.Text != "0")
+                return true;
+
+            return false;
         }
     }
 }

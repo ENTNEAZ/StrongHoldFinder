@@ -13,9 +13,9 @@
         <RadioButton x:Name="SingleLocationWithDirection" Content="一对坐标视角法" HorizontalAlignment="Left" Margin="114,95,0,0" VerticalAlignment="Top" FontSize="20" Checked="SingleLocationWithDirection_Checked"/>
         <RadioButton x:Name="DoubleLocation" Content="两对双坐标视角法" HorizontalAlignment="Left" Margin="519,95,0,0" VerticalAlignment="Top" FontSize="20" Checked="DoubleLocation_Checked"/>
         <Line X1="50" Y1="20" X2="50" Y2="300" Stroke="#66ccff" StrokeThickness="5" Margin="348,73,347,73"></Line>
-        <Button x:Name="CalculateButton" Content="计算！" HorizontalAlignment="Center" Margin="0,392,0,0" VerticalAlignment="Top" Height="51" Width="164" FontSize="18"/>
-        
-        
+        <Button x:Name="CalculateButton" Content="计算！" HorizontalAlignment="Center" Margin="0,392,0,0" VerticalAlignment="Top" Height="51" Width="164" FontSize="18" Click="CalculateButton_Click"/>
+
+
         <Label Content="第一次" HorizontalAlignment="Left" Margin="164,134,0,0" VerticalAlignment="Top" FontWeight="Normal" FontSize="16"/>
         <Label Content="X坐标" HorizontalAlignment="Left" Margin="65,176,0,0" VerticalAlignment="Top"/>
         <Label Content="Z坐标" HorizontalAlignment="Left" Margin="164,176,0,0" VerticalAlignment="Top"/>
@@ -41,7 +41,7 @@
         <TextBox x:Name="FirstSecondX1Location" HorizontalAlignment="Left" Margin="50,321,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="72" Height="20"/>
         <TextBox x:Name="FirstSecondZ1Location" HorizontalAlignment="Left" Margin="150,321,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70" Height="20"/>
         <TextBox x:Name="FirstSecondDirection" HorizontalAlignment="Left" Margin="278,321,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70" Height="20"/>
-        <TextBox x:Name="SecondFirstDropLocationX" HorizontalAlignment="Left" Margin="621,206,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="71" Height="20"/>
+        <TextBox x:Name="SecondFirstDropLocationX" Margin="621,206,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="20" HorizontalAlignment="Left" Width="71"/>
         <TextBox x:Name="SecondFirstDropLocationZ" HorizontalAlignment="Left" Margin="702,206,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70" Height="20"/>
         <TextBox x:Name="SecondFirstThrowLocationX" HorizontalAlignment="Left" Margin="450,206,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70" Height="20"/>
         <TextBox x:Name="SecondFirstThrowLocationZ" HorizontalAlignment="Left" Margin="530,206,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70" Height="20"/>
