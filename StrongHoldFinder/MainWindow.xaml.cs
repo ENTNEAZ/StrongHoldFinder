@@ -20,9 +20,33 @@ namespace StrongHoldFinder
     /// </summary>
     public partial class MainWindow : Window
     {
+        public int method = -1;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void SingleLocationWithDirection_Checked(object sender, RoutedEventArgs e)
+        {
+            this.method = 1;
+        }
+
+        private void DoubleLocation_Checked(object sender, RoutedEventArgs e)
+        {
+            this.method = 2;
+        }
+
+        private List<double> solve(double a, double b, double c,double d, double e, double f)
+        {
+
+            double y = (f - d * c / a) / (e - d * b / a);
+            double x = (c - b * y) / a;
+            List<double> result = new()
+            {
+                x,
+                y
+            };
+            return result;
         }
     }
 }
