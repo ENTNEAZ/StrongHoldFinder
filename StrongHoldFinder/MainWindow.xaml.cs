@@ -41,28 +41,56 @@ namespace StrongHoldFinder
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
-            List<double>? re;
+            List<double> re = new()
+            {
+                double.NaN,
+                double.NaN
+            };//初始化为不存在
+
             if (this.method == -1) 
             {
                 MessageBox.Show("没有选择方法,请选择一个方法", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
 
-            if (this.method == 1) 
+            try
             {
-                re = Utils.solve(
-                    Math.Tan(Math.PI * -1 * Convert.ToDouble(this.FirstFirstDirection.Text) / 180),
-                    -1,
-                    Math.Tan((-1 * Convert.ToDouble(this.FirstFirstDirection.Text)) * Math.PI / 180) * Convert.ToDouble(this.FirstFirstZ1Location.Text) - Convert.ToDouble(this.FirstFirstX1Location.Text), 
-                    Math.Tan((-1 * Convert.ToDouble(this.FirstSecondDirection.Text)) * Math.PI / 180),
-                    -1,
-                    Math.Tan((-1 * Convert.ToDouble(this.FirstSecondDirection.Text))) * Math.PI/180 * Convert.ToDouble(this.FirstSecondZ1Location.Text) - Convert.ToDouble(this.FirstFirstX1Location.Text)
-                    );
+                if (this.method == 1)
+                {
+                    re = Utils.solve(
+                        Math.Tan(Math.PI * -1 * Convert.ToDouble(this.FirstFirstDirection.Text) / 180),
+                        -1,
+                        Math.Tan((-1 * Convert.ToDouble(this.FirstFirstDirection.Text)) * Math.PI / 180) * Convert.ToDouble(this.FirstFirstZ1Location.Text) - Convert.ToDouble(this.FirstFirstX1Location.Text),
+                        Math.Tan((-1 * Convert.ToDouble(this.FirstSecondDirection.Text)) * Math.PI / 180),
+                        -1,
+                        Math.Tan((-1 * Convert.ToDouble(this.FirstSecondDirection.Text))) * Math.PI / 180 * Convert.ToDouble(this.FirstSecondZ1Location.Text) - Convert.ToDouble(this.FirstFirstX1Location.Text)
+                        );
+                }
+
+                if (this.method == 2)
+                {
+                    double k1 = (Convert.ToDouble(this.SecondFirstThrowLocationX.Text) - Convert.ToDouble(this.SecondFirstDropLocationX.Text)) / (Convert.ToDouble(this.SecondFirstThrowLocationZ.Text) - Convert.ToDouble(this.SecondFirstDropLocationZ.Text));
+                    double k2 = (Convert.ToDouble(this.SecondSecondThrowLocationX.Text) - Convert.ToDouble(this.SecondSecondDropLocationX.Text)) / (Convert.ToDouble(this.SecondSecondThrowLocationZ.Text) - Convert.ToDouble(this.SecondSecondDropLocationZ.Text));
+                    re = Utils.solve(k1, -1, k1 * Convert.ToDouble(this.SecondFirstThrowLocationZ.Text) - Convert.ToDouble(this.SecondFirstThrowLocationX.Text), k2, -1, k2 * Convert.ToDouble(this.SecondSecondThrowLocationZ.Text) - Convert.ToDouble(this.SecondSecondThrowLocationX.Text));
+
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("输入数据有误，请检查输入", "注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            
+
+            if (double.IsNaN(re[0]) || double.IsNaN(re[1])) 
+            {
+                //方程无法求解
+                MessageBox.Show("两点过近或数据错误，请重新尝试。", "注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
 
-            if (this.method == 2) 
-            {
-                
-            }
+            this.ShowLocationX.Content = "X:" + re[1].ToString();
+            this.ShowLocationZ.Content = "Z:" + re[0].ToString();
         }
         private bool CheckAllFirstTextBox()
         {
