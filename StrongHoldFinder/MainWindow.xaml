@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StrongHoldFinder"
         mc:Ignorable="d"
-        Title="遗迹地址计算器 --by EZ"
+        Title="要塞地址计算器 --by EZ"
         Height="640" MaxHeight="640" MinHeight="640" Width="789" MaxWidth="789" MinWidth="789" 
         >
     <Grid Background="#FFF0F0F0">
